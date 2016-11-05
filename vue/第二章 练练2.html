@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload=function(){
+            Vue.component('parent', {
+                props:['parentMsg'],
+
+                template: '<button>{{parentMsg}}</button><child :name.sync="parentMsg"></child>',
+                components: {
+                    'child': {
+                        props:{
+                            name:String
+                        },
+                        template: '<input type="text" value="{{name}}" v-model="name">',
+
+                    }
+                }
+            })
+
+            //创建根实例
+            new Vue({
+                el:"#box",
+                data:{
+                    rootMsg:"孙子哎"
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        <parent :parent-msg="rootMsg"></parent>
+    </div>
+
+
+</body>
+</html>

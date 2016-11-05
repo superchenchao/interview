@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vue.js"></script>
+    <!--<style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input {
+            float: left;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+
+        h2 {
+            float: left;
+            margin: 0px 20px;
+            margin-top: 38px;
+        }
+
+        #txt1 {
+            overflow: hidden;
+            margin-top: 50px;
+        }
+    </style>-->
+</head>
+<body>
+<!--<div id="oppo">
+    <h1>{{msg}}</h1>
+    <input v-model="msg">
+</div>-->
+<!--<div id="txt1">
+    &lt;!&ndash;<h2>{{msg1}}</h2>&ndash;&gt;
+    <input v-model="msg1|curr=currency '' 2" number>
+    &lt;!&ndash;<h2>{{msg}}</h2>&ndash;&gt;
+    <h2>+</h2>
+    <input v-model="msg" number>
+    &lt;!&ndash;<h2>{{msg+msg1}}</h2>&ndash;&gt;
+    <h2>=</h2>
+    <input v-model="msg+msg1" number>
+    &lt;!&ndash;<button v-on:click="ada">请点击</button>&ndash;&gt;
+</div>-->
+<div id="box">
+
+    <!--<ul>
+        <li v-for="vlue in arr|limitBy 2 ">{{vlue}} {{$index}}</li>
+    </ul>
+    <hr>
+    <input v-model="name">
+    <ul>
+        <li v-for="vlue in arr|filterBy name in fanwei">{{vlue.username}} {{vlue.password}}</li>
+    </ul>
+    <hr>
+    <ul v-if="hy">
+        <li v-for="vlue in arr|orderBy fanwei -1">{{vlue.username}} {{vlue.password}}</li>
+
+    </ul>
+    <a v-bind:href='url' v-else="hy" @click="hht">我上家欧式</a>-->
+
+</div>
+
+<script>
+/*    /!*new Vue({
+     el:"#oppo",
+     data:{
+     msg:"hello world!!!"
+     }
+     })*!/
+    /!*var vm1 = new Vue({
+        el: "#txt1",
+        data: {
+            msg1: 34,
+            msg: 21,
+        }
+    })*!/
+    var vm=new Vue({
+        el:"#box",
+        data:{
+            ad:['apple','orange','banana'],
+            name:'',
+            fanwei:['password'],
+            hy:false,
+            url:'https://www.baidu.com',
+            arr:[
+                {
+                    username:'sam2',
+                    password:"294281049"
+                },
+                {
+                    username:'peter3',
+                    password:"46464456"
+                },
+                {
+                    username:'luke4',
+                    password:"744342"
+                },
+                {
+                    username:'lucy5',
+                    password:"067564565"
+                }
+            ]
+        },
+        methods:{
+            hht:function(){
+                alert(1)
+            }
+        }
+
+    })*/
+    var f=function g(){
+        var a=23
+        return function(){
+            return g()
+        };
+    }
+     g()()
+</script>
+</body>
+</html>

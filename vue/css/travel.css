@@ -1,0 +1,58 @@
+[v-cloak]{
+    display: none;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 600px;
+}
+td .progress{
+    margin-bottom: 0;
+}
+dl{
+    border: 1px solid black;
+    border-radius: 8px;
+}
+dl dt p{
+    background-color: #F2DEDE;
+    line-height: 40px;
+    font-weight: normal;
+    padding-left: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+dl dd{
+    padding: 10px;
+    box-sizing: border-box;
+}
+.modal-title{
+    padding: 10px;
+}
+.modal-header{
+    border: none;
+}
+
+/*模态框，进度条---------------------------------------*/
+.modal-body{
+    position: relative;
+    overflow: hidden;
+}
+.modal #range{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.modal .progress{
+    position: absolute;
+    top: 0;
+    width: 95%;
+}
+input[type=range]{
+    width: 95%;
+}
+.modal-footer{
+    border: none;
+}
+

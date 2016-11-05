@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table{border: 1px solid #CCC; text-align: center; border-spacing: none; border-collapse: collapse;}
+			tr:not(:first-child){border-top: 1px solid #CCC;}
+			tr:nth-child(2n+2){background:#FAF3E9 ;}
+			tr:nth-child(2n+1){background:#FEFAF7 ;}
+			tr:first-child{background: #EBE7DC;}
+			td{  padding: 7px;}
+			tr:not(:first-child) td:nth-child(5){color: red;}
+		</style>
+	</head>
+	<body>
+			<span>新增</span>
+		<table>
+			<tr>
+				<td><input  type="checkbox"></td>
+				<td>姓名</td>
+				<td>性别</td>
+				<td>卡号</td>
+				<td>会员级别</td>
+				<td>电话号码</td>
+				<td>出生年月</td>
+				<td>消费金额</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script>
+		var x=1;
+			$('tr:odd').css("background","#")
+			$('span').click(function(){
+				var add=$('<tr><td><input  type="checkbox"></td><td>张三'+(x++)+'</td><td>男</td><td>622202110203675</td><td>短工</td><td>18951117135</td><td>1995-12-05</td><td>10,00.00</td> <td><img src="images/del.jpg"></td></tr>')
+				add.appendTo($("table"))
+				$('img').click(function(){
+					$(this.parentNode.parentNode).remove();
+				})
+			})
+		</script>
+	</body>
+</html>

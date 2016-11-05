@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/city.css">
+</head>
+<body>
+    <form>
+        <input type="text" id="text1">
+    </form>
+    <div class="box">
+        <div class="top">
+            <ul>
+                <li>省份</li>
+                <li>城市</li>
+                <li>区县</li>
+            </ul>
+        </div>
+        <div class="bottom">
+            <ul>
+            </ul>
+        </div>
+    </div>
+</body>
+    <script src="JS/jquery-2.1.4.min.js"></script>
+    <script src="JS/cityJson.js"></script>
+    <script>
+        //console.log(province.length)
+        $(":input").focus(function(){
+            //console.log(1)
+            $(":input").val("")
+            $(".box").css("display","block")
+            for(var num in province){
+                var namee=province[num].name;
+                var idd=province[num].id;
+
+                $(".bottom ul").append($('<li id='+idd+'>'+namee+'</li>'))
+            }
+        })
+                    $(".bottom ul").on("click","li",function(){
+                        var textsheng=$(this).text();
+                        $("#text1").val(textsheng+"-");
+                        var pro_id = $(this).attr("id");
+                        //console.log(pro_id)
+                        $(this).parent().html("");
+                        $(province).each(function(i,e){
+                            if(pro_id== e.id){
+                                var city=e.city;
+                                $(city).each(function(a,b){
+                                    //console.log(b.name)
+                                    var cityname=b.name;
+                                    var cityid = b.id;
+                                    $('.bottom ul').append($('<li shiid='+cityid+'>'+cityname+'</li>'))
+                                })
+                                    $(".bottom ul").on("click","li",function(){
+                                        $(this).parent().html("");
+                                        var textshi=$(this).text();
+                                        var shi_id=$(this).attr("shiid");
+                                        $("#text1").val(textsheng+"-"+textshi+"-");
+                                            $(area).each(function(m,q){
+                                                if(q.pid== shi_id){
+                                                    $('.bottom ul').append($('<li quid='+ q.id+'>'+ q.name+'</li>'))
+                                                }
+                                                $(".bottom ul").on("click","li",function(){
+                                                    $(this).parent().html("");
+                                                    var textqu=$(this).text();
+                                                    $("#text1").val(textsheng+"-"+textshi+"-"+textqu);
+                                                })
+                                            })
+                                    })
+
+                            }
+
+                        })
+                    })
+    </script>
+</html>

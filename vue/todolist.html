@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--强制IE以电脑上的最新IE内核渲染-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title></title>
+    <script src="js/vue.js"></script>
+    <style>
+        .container {
+            width: 700px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="box">
+        <form role="form">
+            <div class="form-group">
+                <label for="username">姓名：</label>
+                <input type="text" class="form-control" id="username" placeholder="请输入姓名" v-model="username">
+            </div>
+            <div class="form-group">
+                <label for="age">年龄：</label>
+                <input type="text" class="form-control" id="age" placeholder="请输入年龄" v-model="age">
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" value="添加" @click="add()">
+                <input type="reset" class="btn btn-danger" value="重置">
+            </div>
+        </form>
+        <!--以上是表单部分——————————————————————————————————————————————————————————————————————————————————-->
+        <table class="table table-bordered">
+            <caption class="h3 text-info text-center">用户信息表</caption>
+            <tr>
+                <th class="text-center">序号</th>
+                <th class="text-center">名字</th>
+                <th class="text-center">年龄</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <tr class="text-center" v-for="item in myData" ioi="{{$index}}">
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>
+                    <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#layer" @click="nowIndex=$index">删除</button>
+                </td>
+            </tr>
+            <tr v-show="myData.length!=0">
+                <td colspan="4" class=" text-right">
+                    <button class="btn btn-success btn-sm" @click="nowIndex=-2" data-toggle="modal" data-target="#layer">删除全部</button>
+                </td>
+            </tr>
+            <tr v-show="myData.length==0">
+                <td class="text-center" colspan="4">
+                    <p>暂无数据...</p>
+                </td>
+            </tr>
+        </table>
+
+        <!--以上为表单部分——————————————————————————————————————————————————————————————————————-->
+        <div class="modal fade" role="dialog" id="layer">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title" v-if="show">确认删除吗？</h4>
+                        <h4 class="modal-title" v-else="show">确认删除全部吗？</h4>
+                    </div>
+                    <div class="modal-body text-right">
+                        <input type="button" class="btn btn-primary" value="确认" data-dismiss="modal" @click="deleteMsg(nowIndex)">
+                        <input type="reset" class="btn btn-danger" value="取消" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--以上为模态框——————————————————————————————————————————————————————————————————————————————————-->
+    </div>
+
+
+    <script>
+            var vm=new Vue({
+                el:"#box",
+                data:{
+                    myData:[],
+                    username:'',
+                    age:'',
+                    nowIndex:-100,
+                    show:true
+                },
+                methods:{
+                    add:function(){
+                        this.myData.push({
+                            name:this.username,
+                            age:this.age
+                        });
+                        this.username='';
+                        this.age=''
+                    },
+                    deleteMsg:function(n){
+                        if(n==-2){
+                            this.myData=[];
+
+                        }else{
+                            //alert(n)
+                            this.myData.splice(n,1)
+                        }
+                    },
+                    del:function(index){
+                        if(index==-1){
+                            this.show=false;
+                        }else{
+                            //alert(index)
+                            this.show=true;
+                        }
+
+                    }
+                }
+            })
+    </script>
+    <!--以上为vue代码——————————————————————————————————————————————————————————————————————————————————————————————-->
+
+</body>
+</html>

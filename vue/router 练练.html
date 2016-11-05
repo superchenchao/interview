@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        window.onload=function(){
+            var Home=Vue.extend({
+                template:"#one",
+                data:function(){
+                    return{
+                        msg:"你好，世界！"
+                    }
+                }
+            })
+            var About=Vue.extend({
+                template:"#two",
+                data:function(){
+                    return{
+                        msg:"中国，你好！"
+                    }
+                }
+            })
+
+            var router=new VueRouter();
+            var App=Vue.extend({});
+            router.map({'/home': { component: Home },'/about': { component: About }})
+            router.start(App, '#app')
+            router.redirect({'/': '/home'})
+
+        }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <div class="list-group">
+            <a class="list-group-item" v-link="{path:'/home'}">Home</a>
+            <a class="list-group-item" v-link="{path:'/about'}">About</a>
+            <template id="one"><div class='home'><h1>Home</h1><p>{{msg}}</p></div></template>
+            <template id="two"><div class='about'><h1>About</h1><p>{{msg}}</p></div></template>
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+</html>

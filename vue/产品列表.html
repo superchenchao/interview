@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--强制IE以电脑上的最新IE内核渲染-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title></title>
+
+    <style>
+        .bg-info{
+            overflow: hidden;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div class="container" id="box">
+        <form role="form" class="bg-info" >
+            <div class="form-group col-lg-3 ">
+                <label>搜索：</label>
+                <input type="text" class="form-control" v-model="num">
+            </div>
+        </form>
+        <br><br>
+        <table class="table">
+            <thead>
+                <th>产品编号</th>
+                <th>产品名称</th>
+                <th>产品价钱</th>
+            </thead>
+            <tbody>
+                <tr v-for="val in arr|filterBy num">
+                    <td>{{val.numble}}</td>
+                    <td>{{val.name}}</td>
+                    <td>{{val.money|currency 'RMB' 2}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<script>
+    var vm=new Vue({
+        el:"#box",
+        data:{
+            num:'',
+            arr:[{
+                numble:"234",
+                name:"iphone",
+                money:6000
+            },
+            {
+                    numble:"0974",
+                    name:"sumsung",
+                    money:3000
+            },
+            {
+                numble:"6784",
+                name:"huawei",
+                money:2300
+            },
+            {
+                numble:"23434",
+                name:"xiaomi",
+                money:1000
+            },
+            {
+                numble:"25454",
+                name:"oppo",
+                money:1600
+            }
+            ]
+        }
+    })
+</script>
+</body>
+</html>

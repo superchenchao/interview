@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--强制IE以电脑上的最新IE内核渲染-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title></title>
+    <link href="css/travel.css" rel="stylesheet">
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload=function(){
+            var vm=new Vue({
+                el:"#box",
+                data:{
+                    myData:[],
+                    active:'',
+                    nowDate:getToday(),
+                    comData:[],
+                    //progress:[],
+                    styleWidth:'0',
+                    val:'0',
+                    newIndex:'',
+                },
+                methods:{
+                    add:function(){
+                        if(this.active==""){
+                            alert("请输入数据")
+                        }else{
+                            this.myData.push({
+                                content:this.active,
+                                dater:this.nowDate,
+                                stWidth:this.styleWidth
+                            });
+                            this.active=''
+                        }
+
+                    },
+                    complete:function(dex){
+                            this.comData.push({
+                                con:this.myData[dex].content,
+                                daterr:this.myData[dex].dater,
+
+                            });
+                            this.myData.splice(dex,1)
+                    },
+                    deleter:function(a){
+                        this.comData.splice(a,1)
+                    },
+                    inn:function(a){
+                        //console.log(this.styleWidth)
+                        this.myData[a].stWidth=this.val;
+                        this.nowIndex=0;
+                        if(this.myData[a].stWidth=='100'){
+                            this.comData.push({
+                                con:this.myData[a].content,
+                                daterr:this.myData[a].dater,
+
+                            });
+                            this.myData.splice(a,1)
+                        }
+                    },
+                    pro:function(b){
+                        this.val=0
+                        this.nowIndex=b
+                    }
+
+                }
+            })
+
+            function getToday(){
+                var d = new Date();
+                return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container" id="box" v-cloak>
+        <h2>行程卡</h2>
+        <div class="form-group">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <label><input type="text" class="form-control" v-model="active" @keyup.enter="add"></label>
+            <button type="button" class="btn btn-primary" @click="add">确定</button>
+        </div>
+
+        <dl>
+            <dt><p class="text-warning">进行中...</p></dt>
+            <dd>
+                <table class="table table-bordered" >
+                    <th>ID</th>
+                    <th>开始时间</th>
+                    <th>行程内容</th>
+                    <th>行程进度</th>
+                    <th>行程结束</th>
+                    <tr v-for="value in myData">
+                        <td>{{$index+1}}</td>
+                        <td><span>{{value.dater}}</span></td>
+                        <td width="200px">{{value.content}}</td>
+                        <td>
+                            <div class="progress" data-toggle="modal" data-target="#layer" @click="pro($index)">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" :style="{width:value.stWidth+'%'}">
+                                    {{value.stWidth+"%"}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success btn-xs" style="margin-left: 20px" @click="complete($index)">完成</button>
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+        <br/>
+        <dl>
+            <dt><p class="text-warning bg-warning">已完成行程</p></dt>
+            <dd>
+                <table class="table table-bordered" >
+                    <th>ID</th>
+                    <th>开始时间</th>
+                    <th>行程内容</th>
+                    <th>行程进度</th>
+                    <th>行程结束</th>
+                    <tr v-for="val in comData">
+                        <td>{{$index+1}}</td>
+                        <td><span>{{val.daterr}}</span></td>
+                        <td width="200px">{{val.con}}</td>
+                        <td>
+                            <span>{{val.daterr}}</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-xs" style="margin-left: 20px" @click="deleter($index)">删除</button>
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+
+        <!--模态框————————————————————————————————————————————————————————————————————————————————————————————————————-->
+        <div class="modal fade" role="dialog" id="layer">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title bg-success">请拖动滑块调整完成进度</h4>
+                    </div>
+                    <div class="modal-body text-right">
+                        <input type="range" id="range" min="0" max="100" :value="val" v-model="val" >
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" :style="{width:val+'%'}">
+                                <span class="sr-only">60% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" @click="inn(nowIndex)">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

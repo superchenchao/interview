@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "microsoft yahei";
+}
+form{
+    width: 200px;
+    margin: 0 auto;
+}
+.box{
+    width: 350px;
+    padding: 10px;
+    border: 1px solid #adadad;
+    margin: 40px auto;
+    display: none;
+}
+.box .top ul{
+    width: 350px;
+    height: 30px;
+    border-bottom: 2px solid dodgerblue;
+    overflow: hidden;
+}
+.box .top ul li{
+    float: left;
+    list-style-type: none;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+}
+.box .top ul li:hover{
+    background: dodgerblue;
+    color: white;
+}
+.box .top ul:after{
+    content:"X";
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    color: dodgerblue;
+    border: 1px solid dodgerblue;
+    float: right;
+}
+.box .bottom ul{
+    overflow: hidden;
+}
+.box .bottom ul li{
+    float: left;
+    width: 60px;
+    height: 30px;
+    background: #FAFAFA;
+    list-style-type: none;
+    margin: 5px;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+}
+.box .bottom ul li:hover{
+    background: dodgerblue;
+}

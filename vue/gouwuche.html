@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--强制IE以电脑上的最新IE内核渲染-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title></title>
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="container" id="box">
+        <table class="table">
+            <th>产品编号</th>
+            <th>产品名字</th>
+            <th>购买数量</th>
+            <th>产品单价</th>
+            <th>产品总价</th>
+            <th>操作</th>
+
+            <tr v-for="item in arr">
+                <td>{{item.numble}}</td>
+                <td>{{item.name}}</td>
+                <td style="width: 300px">
+                    <button type="button" class="btn btn-danger" @click="lower($index)" v-bind:disabled="item.quantity>1?false:true">-</button>
+                    <input type="text" v-model="item.quantity" @input="changeQuantity($index)" >
+                    <button type="button" class="btn btn-danger" @click="add($index)">+</button>
+                </td>
+                <td>{{item.money}}</td>
+                <td>{{item.allMoney|currency 'RMB '}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm" @click="deleter($index)">删除</button>
+                </td>
+            </tr>
+            <tr v-if="show">
+                <td>总购买价</td>
+                <td>{{allm}}</td>
+                <td>总购买数量</td>
+                <td>{{allQuantity}}</td>
+                <td colspan="2">
+                    <button type="button" class="btn btn-warning btn-sm" @click="allDelete()">清空购物车</button>
+                </td>
+            </tr>
+            <tr v-else="show">
+                <td class="text-center" colspan="6">您的购物车为空，不妨去商城逛逛</td>
+            </tr>
+        </table>
+    </div>
+
+<script>
+    var vm=new Vue({
+        el:"#box",
+        data: {
+            myData: [],
+            disable:'',
+            show:true,
+            arr: [{
+                numble: 100,
+                name: 'iphone10s',
+                quantity: 1,
+                money: 6300,
+                allMoney: '6300'
+            },
+            {
+                numble: 212,
+                name: 'iphone8s',
+                quantity: 4,
+                money: 5300,
+                allMoney: '21200'
+            },
+            {
+                numble: 440,
+                name: 'ipad',
+                quantity: 2,
+                money: 3300,
+                allMoney: '6600'
+            },
+            {
+                numble: 205,
+                name: 'imac',
+                quantity: 1,
+                money: 14300,
+                allMoney: '14300'
+            }]
+        },
+        methods:{
+            changeQuantity:function(n){
+                //console.log(typeof this.arr[n].quantity)
+                if(parseInt(this.arr[n].quantity)<2||parseInt(this.arr[n].quantity)==""||parseInt(this.arr[n].quantity)=="NaN"){
+                    this.arr[n].quantity=""
+                    this.arr[n].allMoney=this.arr[n].money
+                }else{
+                    this.arr[n].allMoney=parseInt(this.arr[n].quantity)*this.arr[n].money
+                }
+                //
+
+            },
+            lower:function(n){
+
+                    //console.log(typeof parseInt(this.arr[i].quantity))
+                    var quantity=parseInt(this.arr[n].quantity);
+                    quantity--;
+                    //console.log(quantity);
+                    this.arr[n].quantity=quantity
+                    this.arr[n].allMoney=this.arr[n].quantity*this.arr[n].money
+                    if((this.arr[n].quantity)<=1){
+                        this.arr[n].quantity=1;
+                        this.arr[n].allMoney=this.arr[n].money
+                    }
+            },
+            add:function(n){
+
+                //console.log(typeof parseInt(this.arr[i].quantity))
+                var quantity=parseInt(this.arr[n].quantity);
+                quantity++;
+                //console.log(quantity);
+                this.arr[n].quantity=quantity;
+                this.arr[n].allMoney=this.arr[n].quantity*this.arr[n].money
+            },
+            deleter:function(n){
+                this.arr.splice(n,1)
+                if(this.arr.length==0){
+                    this.show=false
+                }
+
+            },
+            allDelete:function(){
+                this.arr={}
+                this.show=false
+            }
+        },
+        computed:{
+            allm:function(){
+                var b=[];
+                for(var i=0;i<this.arr.length;i++){
+
+                    var a=this.arr[i].allMoney;
+                    b.push(a)
+                }
+                var c=0
+                for(var j=0;j< b.length;j++){
+                    c=c+Number(b[j])
+                }
+                return c
+
+            },
+            allQuantity:function(){
+                    var b=[];
+                for(var i=0;i<this.arr.length;i++){
+                    var a=this.arr[i].quantity;
+                    b.push(a)
+                }
+                var c=0
+                for(var j=0;j< b.length;j++){
+                    c=c+Number(b[j])
+                }
+                return c
+            }
+        }
+    })
+</script>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
