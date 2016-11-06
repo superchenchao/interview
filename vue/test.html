@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TEST</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 1000px;
+            margin: 0 auto;
+            border: 1px solid #1b6d85;
+            overflow: hidden;
+            padding: 10px;
+        }
+        #allBtn{
+            float: right;
+            border: 1px solid #bce8f1;
+            padding: 5px;
+        }
+        table{
+            float: left;
+        }
+        #bigBtn{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" v-cloak>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>商品名</th>
+                    <th>数量</th>
+                    <th>单价</th>
+                    <th>总价</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in allName">
+                    <td>{{item.numble}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.money}}</td>
+                    <td>{{item.allMoney}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="allBtn">
+            <button id="btn1" @click="add()">手机1</button><br>
+            <button id="btn2" @click="add()">手机2</button><br>
+            <button id="btn3" @click="add()">手机3</button><br>
+            <button id="btn4" @click="add()">手机4</button><br>
+            <button id="bigBtn" @click="addAll()">添加</button>
+        </div>
+
+    </div>
+
+
+
+    <script src="js/vue.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script>
+        var boo1 = true;
+        var boo2 = true;
+        var boo3 = true;
+        var boo4 = true;
+
+        var vm1 = new Vue({
+            el:"#btn1",
+            data:{
+                arr:"",
+            },
+            methods:{
+                add:function(){
+                    var _self = this;
+                    $.ajax({
+                        type:"GET",
+                        url:"json/data.json",
+                        success:function(data) {
+                            if(boo1){
+                                if (_self.arr == "") {
+                                    _self.arr = data[0];
+                                    $("#btn1").css("background","yellow");
+                                } else {
+                                    _self.arr = "";
+                                    $("#btn1").css("background","");
+                                }
+                            }
+
+                        }
+                    });
+
+                }
+            }
+        });
+        var vm2 = new Vue({
+            el:"#btn2",
+            data:{
+                arr:"",
+            },
+            methods:{
+                add:function(){
+                    var _self = this;
+                    $.ajax({
+                        type:"GET",
+                        url:"json/data.json",
+                        success:function(data) {
+                            if(boo2){
+                                if (_self.arr == "") {
+                                    _self.arr = data[1];
+                                    $("#btn2").css("background","yellow");
+                                } else {
+                                    _self.arr = "";
+                                    $("#btn2").css("background","");
+                                }
+                            }
+
+                        }
+                    });
+
+                }
+            }
+        });
+        var vm3 = new Vue({
+            el:"#btn3",
+            data:{
+                arr:"",
+            },
+            methods:{
+                add:function(){
+                    var _self = this;
+                    $.ajax({
+                        type:"GET",
+                        url:"json/data.json",
+                        success:function(data) {
+                            if(boo3){
+                                if (_self.arr == "") {
+                                    _self.arr = data[2];
+                                    $("#btn3").css("background","yellow");
+                                } else {
+                                    _self.arr = "";
+                                    $("#btn3").css("background","");
+                                }
+                            }
+
+                        }
+                    });
+
+                }
+            }
+        });
+        var vm4 = new Vue({
+            el:"#btn4",
+            data:{
+                arr:"",
+            },
+            methods:{
+                add:function(){
+                    var _self = this;
+                    $.ajax({
+                        type:"GET",
+                        url:"json/data.json",
+                        success:function(data) {
+                            if(boo4){
+                                if (_self.arr == "") {
+                                    _self.arr = data[3];
+                                    $("#btn4").css("background","yellow");
+                                } else {
+                                    _self.arr = "";
+                                    $("#btn4").css("background","");
+                                }
+                            }
+
+                        }
+                    });
+
+                }
+            }
+        });
+        var vm = new Vue({
+            el:"#box",
+            data:{
+                allName:[]
+            },
+            methods:{
+                addAll:function(){
+                    if(vm1.arr != ""){
+                        this.allName.push(vm1.arr);
+                        vm1.arr = "";
+                        $("#btn1").css("background","");
+                        boo1 = false;
+                    }
+                    if(vm2.arr != ""){
+                        this.allName.push(vm2.arr);
+                        vm2.arr = "";
+                        $("#btn2").css("background","");
+                        boo2 = false;
+                    }
+                    if(vm3.arr != ""){
+                        this.allName.push(vm3.arr);
+                        vm3.arr = "";
+                        $("#btn3").css("background","");
+                        boo3 = false;
+                    }
+                    if(vm4.arr != ""){
+                        this.allName.push(vm4.arr);
+                        vm4.arr = "";
+                        $("#btn4").css("background","");
+                        boo4 = false;
+                    }
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
