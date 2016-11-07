@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 1000px;
+            margin: 0 auto;
+            border: 1px solid #1b6d85;
+            overflow: hidden;
+            padding: 10px;
+        }
+        #allBtn{
+            float: right;
+            border: 1px solid #bce8f1;
+            padding: 5px;
+        }
+        table{
+            float: left;
+        }
+        #bigBtn{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>商品名</th>
+                <th>数量</th>
+                <th>单价</th>
+                <th>总价</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div id="allBtn">
+            <button id="btn1">手机1</button><br>
+            <button id="btn2">手机2</button><br>
+            <button id="btn3">手机3</button><br>
+            <button id="btn4">手机4</button><br>
+            <button id="bigBtn">添加</button>
+        </div>
+    </div>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script>
+
+
+        var btn1Data ="" ;
+        var btn2Data ="" ;
+        var btn3Data ="" ;
+        var btn4Data ="" ;
+
+        var allData =[];
+
+        var boo1 = true;
+        var boo2 = true;
+        var boo3 = true;
+        var boo4 = true;
+
+        $("#btn1").click(function(){
+            $.ajax({
+                type:"GET",
+                url:"json/data.json",
+                success:function(data) {
+                    if(boo1){
+                        if (btn1Data == "") {
+                            btn1Data = data[0];
+                            $("#btn1").css("background","yellow");
+                            //console.log(JSON.stringify(_self.arr))
+                        } else {
+                            btn1Data = "";
+                            $("#btn1").css("background","");
+                        }
+                    }
+
+
+                }
+            });
+        });
+        $("#btn2").click(function(){
+            $.ajax({
+                type:"GET",
+                url:"json/data.json",
+                success:function(data) {
+                    if(boo2){
+                        if (btn2Data == "") {
+                            btn2Data = data[1];
+                            $("#btn2").css("background","yellow");
+                            //console.log(JSON.stringify(_self.arr))
+                        } else {
+                            btn1Data = "";
+                            $("#btn2").css("background","");
+                        }
+                    }
+
+
+                }
+            });
+        });
+        $("#btn3").click(function(){
+            $.ajax({
+                type:"GET",
+                url:"json/data.json",
+                success:function(data) {
+                    if(boo3){
+                        if (btn3Data == "") {
+                            btn3Data = data[2];
+                            $("#btn3").css("background","yellow");
+                            //console.log(JSON.stringify(_self.arr))
+                        } else {
+                            btn3Data = "";
+                            $("#btn3").css("background","");
+                        }
+                    }
+
+
+                }
+            });
+        });
+        $("#btn4").click(function(){
+            $.ajax({
+                type:"GET",
+                url:"json/data.json",
+                success:function(data) {
+                    if(boo4){
+                        if (btn4Data == "") {
+                            btn4Data = data[3];
+                            $("#btn4").css("background","yellow");
+                            //console.log(JSON.stringify(_self.arr))
+                        } else {
+                            btn4Data = "";
+                            $("#btn4").css("background","");
+                        }
+                    }
+
+
+                }
+            });
+        });
+
+        $("#bigBtn").click(function(){
+            if(btn1Data != ""){
+                allData.push(btn1Data);
+                $(allData).each(function(a,b){
+                    $("tbody").append('<tr><td>'+allData[a].numble+'</td><td>'+allData[a].name+'</td><td>'+allData[a].quantity+'</td><td>'+allData[a].money+'</td><td>'+allData[a].allMoney+'</td></tr>');
+                })
+
+                allData = [];
+                $("#btn1").css("background","");
+                btn1Data = "";
+                boo1 = false;
+            }
+
+            if(btn2Data != ""){
+                allData.push(btn2Data);
+                $(allData).each(function(a,b){
+                    $("tbody").append('<tr><td>'+allData[a].numble+'</td><td>'+allData[a].name+'</td><td>'+allData[a].quantity+'</td><td>'+allData[a].money+'</td><td>'+allData[a].allMoney+'</td></tr>');
+                })
+
+                allData = [];
+                $("#btn2").css("background","");
+                btn2Data = "";
+                boo2 = false;
+            }
+
+            if(btn3Data != ""){
+                allData.push(btn3Data);
+                $(allData).each(function(a,b){
+                    $("tbody").append('<tr><td>'+allData[a].numble+'</td><td>'+allData[a].name+'</td><td>'+allData[a].quantity+'</td><td>'+allData[a].money+'</td><td>'+allData[a].allMoney+'</td></tr>');
+                })
+
+                allData = [];
+                $("#btn3").css("background","");
+                btn3Data = "";
+                boo3 = false;
+            }
+
+            if(btn4Data != ""){
+                allData.push(btn4Data);
+                $(allData).each(function(a,b){
+                    $("tbody").append('<tr><td>'+allData[a].numble+'</td><td>'+allData[a].name+'</td><td>'+allData[a].quantity+'</td><td>'+allData[a].money+'</td><td>'+allData[a].allMoney+'</td></tr>');
+                })
+
+                allData = [];
+                $("#btn4").css("background","");
+                btn4Data = "";
+                boo4 = false;
+            }
+        })
+    </script>
+</body>
+</html>
